@@ -106,6 +106,8 @@ class LinkedList:
         else:
             return 0
 
+
+"""
 list_ = LinkedList()
 
 assert list_.head == None
@@ -140,3 +142,142 @@ second_node = list_.node(at=1)
 list_.remove(second_node)
 
 assert str(list_) == '1 -> 5'
+"""
+
+class Stack:
+    def __init__(self):
+        _storage: LinkedList = None
+        self.head: Node = None
+
+    def push(self, element: Any) -> None:
+        node = Node(element)
+        node.next = self.head
+        self.head = node
+
+    def pop(self) -> Any:
+        if self.head is None:
+            return None
+        else:
+            temp = self.head
+            self.head = self.head.next
+            return temp.value
+
+    def print(self):
+        if self.head is not None:
+            current = self.head
+            while current is not None:
+                print(current.value)
+                current = current.next
+
+    def __len__(self) -> int:
+        if self.head is not None:
+            current = self.head
+            counter = 1
+            while current.next is not None:
+                counter += 1
+                current = current.next
+            return counter
+        else:
+            return 0
+
+
+"""
+stack = Stack()
+
+assert len(stack) == 0
+
+stack.push(3)
+stack.push(10)
+stack.push(1)
+
+assert len(stack) == 3
+
+top_value = stack.pop()
+
+assert top_value == 1
+
+assert len(stack) == 2
+"""
+
+class Queue:
+    def __init__(self):
+        _storage: LinkedList = None
+        self.head: Node = None
+        self.tail: Node = None
+
+    def __str__(self):
+        current = self.head
+        nodes = []
+        while current is not None:
+            nodes.append(current.value)
+            current = current.next
+        nodes.reverse()
+        nodes = map(str, nodes)
+        return(", ".join(nodes))
+
+    def peek(self) -> Any:
+        if self.tail is not None:
+            return self.tail.value
+        else:
+            return None
+    
+    def enqueue(self, element: Any) -> None:
+        node = Node(element)
+        node.next = self.head
+        self.head = node
+        if self.head.next is None:
+            self.tail = self.head
+
+    def dequeue(self) -> Any:
+        if self.head is not None:
+            if self.head == self.tail:
+                temp = self.head
+                self.head = None
+                self.tail = None
+                return temp.value
+            current = self.head
+            while current.next is not self.tail:
+                current = current.next
+            temp = self.tail
+            current.next = None
+            self.tail = current
+            return temp.value
+
+    def print(self):
+        current = self.head
+        nodes = []
+        while current is not None:
+            nodes.append(current.value)
+            current = current.next
+        nodes.reverse()
+        nodes = map(str, nodes)
+        print(", ".join(nodes))
+
+    def __len__(self):
+        if self.head is not None:
+            current = self.head
+            counter = 1
+            while current.next is not None:
+                counter += 1
+                current = current.next
+            return counter
+        else:
+            return 0
+
+
+
+queue = Queue()
+
+assert len(queue) == 0
+
+queue.enqueue('klient1')
+queue.enqueue('klient2')
+queue.enqueue('klient3')
+
+assert str(queue) == 'klient1, klient2, klient3'
+
+client_first = queue.dequeue()
+
+assert client_first == 'klient1'
+assert str(queue) == 'klient2, klient3'
+assert len(queue) == 2
