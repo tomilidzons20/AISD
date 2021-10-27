@@ -107,7 +107,6 @@ class LinkedList:
             return 0
 
 
-
 # list_ = LinkedList()
 # assert list_.head == None
 # list_.push(1)
@@ -131,7 +130,7 @@ class LinkedList:
 # assert str(list_) == '1 -> 5'
 
 
-class Stack():
+class Stack:
     def __init__(self):
         self._storage: LinkedList = LinkedList()
 
