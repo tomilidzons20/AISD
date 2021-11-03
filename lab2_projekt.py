@@ -37,7 +37,7 @@ class LinkedList:
             self.head = node
             self.tail = node
 
-    def node(self, at: int) -> None:
+    def node(self, at: int) -> Node:
         current = self.head
         counter = 0
         while current is not None:
