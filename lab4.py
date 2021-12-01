@@ -18,16 +18,12 @@ class TreeNode:
         self.children.append(child)
 
     def for_each_deep_first(self, visit: Callable[['TreeNode'], None]) -> None:
-        if not self:
-            return
         visit(self)
         if not self.is_leaf():
             for child in self.children:
                 child.for_each_deep_first(visit)
 
     def for_each_level_order(self, visit: Callable[['TreeNode'], None]) -> None:
-        if not self:
-            return
         visit(self)
         fifo = deque()
         for child in self.children:
