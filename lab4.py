@@ -89,11 +89,11 @@ class Tree:
         self.root.for_each_deep_first(visit)
 
     def show(self) -> None:
-        tl = tr.Tree()
-        tl.create_node(str(self.root), str(self.root))
         def edge(node: 'TreeNode') -> None:
             for child in node.children:
                 tl.create_node(str(child), str(child), parent=str(node))
+        tl = tr.Tree()
+        tl.create_node(str(self.root), str(self.root))
         self.for_each_deep_first(edge)
         tl.show()
 
