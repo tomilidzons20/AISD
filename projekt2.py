@@ -105,19 +105,19 @@ tree.show()
 
 
 def check_level(tree: BinaryTree, first_node: BinaryNode, second_node: BinaryNode) -> bool:
-    def help(node: BinaryNode, value: int, level: int) -> int:
-        if node.value == value:
+    def help(node: BinaryNode, snode: BinaryNode, level: int) -> int:
+        if node == snode:
             return level
         levelhelp = 0
         if node.left_child is not None:
-            levelhelp = help(node.left_child, value, level + 1)
+            levelhelp = help(node.left_child, snode, level + 1)
         if levelhelp != 0:
             return levelhelp
         if node.right_child is not None:
-            levelhelp = help(node.right_child, value, level + 1)
+            levelhelp = help(node.right_child, snode, level + 1)
         return levelhelp
-    levelf = help(tree.root, first_node.value, 0)
-    levels = help(tree.root, second_node.value, 0)
+    levelf = help(tree.root, first_node, 0)
+    levels = help(tree.root, second_node, 0)
     if levelf == levels:
         return True
     else:
