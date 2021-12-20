@@ -9,6 +9,7 @@ class EdgeType(Enum):
     directed = 1
     undirected = 2
 
+
 class Vertex:
     def __init__(self, data: Any, index: int):
         self.data: Any = data
