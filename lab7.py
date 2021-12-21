@@ -49,7 +49,7 @@ class Graph:
                 value.append(Edge(source, destination, weight))
             if key == destination:
                 for neighbour in value:
-                    if destination == neighbour.destination:
+                    if source == neighbour.destination:
                         return
                 value.append(Edge(destination, source, weight))
 
