@@ -1,6 +1,6 @@
 from enum import Enum
 from typing import Any, Callable, Optional, Dict, List
-# from projekt2 import Queue
+# from lab2_projekt import Queue
 from testing import Queue
 import networkx as nx
 import matplotlib.pyplot as plt
