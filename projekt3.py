@@ -1,6 +1,5 @@
 from enum import Enum
 from typing import Any, Callable, Optional, Dict, List
-# from lab2_projekt import Queue
 from testing import Queue
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -273,22 +272,29 @@ def all_weighted_shortest_paths(g: Graph, start: Any) -> Dict[Any, List[Edge]]:
                 c = value
                 v = key
         return v
+    start1 = None
     price: Dict[Vertex, float] = {}
     paths: Dict[Vertex, List[Edge]] = {}
-    # initialization of parents and cost dictionary
+    # initialization of parents and cost dictionary and finding vertex with start data
+    for i in g.adjacencies.keys():
+        if i.data == start:
+            start1 = i
+    if start1 is None:
+        print("No vertex with given data in graph!")
+        return None
     for key, value in g.adjacencies.items():
-        paths.update({key: [start]})
+        paths.update({key: [start1]})
         for i in value:
             price.update({i.destination: float('inf')})
     for key, value in g.adjacencies.items():
-        if key == start:
+        if key == start1:
             price.update({key: 0})
             for i in value:
-                if i.source == start:
+                if i.source == start1:
                     price.update({i.destination: i.weight})
     # loop
     visited = []
-    visited1 = [start]
+    visited1 = [start1]
     v = closest_vertex()
     path = {}
     while v:
@@ -323,7 +329,7 @@ def all_weighted_shortest_paths(g: Graph, start: Any) -> Dict[Any, List[Edge]]:
         ils = 0
         for k, v in paths.items():
             # if path is not beginning from starting vertex
-            if v[0] is not start:
+            if v[0] is not start1:
                 # copy path of first vertex in path and add it to path of current vertex
                 i = v[0]
                 tmp = list(paths[i])
@@ -335,8 +341,11 @@ def all_weighted_shortest_paths(g: Graph, start: Any) -> Dict[Any, List[Edge]]:
     # show paths
     for k, v in paths.items():
         path1 = []
-        for i in v:
-            path1.append(i.data)
+        if len(v) == 1 and k is not start1:
+                path1.append(None)
+        else:
+            for i in v:
+                path1.append(i.data)
         print(f"{k.data}: {path1}")
     return paths
 
@@ -444,6 +453,6 @@ graf.add(EdgeType.directed, v4, v5, 1)
 
 pgraph = GraphPath(graf, v0, v3)
 
-all_weighted_shortest_paths(graf, v0)
+all_weighted_shortest_paths(graf, "v4")
 pgraph.visualize()
 # graf.show()
