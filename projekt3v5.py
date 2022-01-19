@@ -35,7 +35,7 @@ class Graph:
     def add_directed_edge(self, source: Vertex, destination: Vertex, weight: Optional[float] = None) -> None:
         for key, value in self.adjacencies.items():
             if key == source:
-                for neighbour in self.adjacencies[source]:
+                for neighbour in value:
                     if destination == neighbour.destination:
                         return
                 value.append(Edge(source, destination, weight))
@@ -62,7 +62,10 @@ class Graph:
     def traverse_breadth_first(self, visit: Callable[[Any], None]) -> None:
         fifo = Queue()
         visited = []
-        first = list(self.adjacencies.keys())[0]
+        first = 0
+        for key, value in self.adjacencies.items():
+            first = key
+            break
         visited.append(first)
         fifo.enqueue(first)
         while fifo:
@@ -81,7 +84,10 @@ class Graph:
                 if neighbour.destination not in visited:
                     dfs(neighbour.destination, visited, visit)
         visited = []
-        first = list(self.adjacencies.keys())[0]
+        first = 0
+        for key, value in self.adjacencies.items():
+            first = key
+            break
         dfs(first, visited, visit)
 
     def show(self, path: Optional[List[Vertex]] = None) -> None:
@@ -298,7 +304,7 @@ def all_weighted_shortest_paths(g: Graph, start: Any) -> Dict[Any, List[Edge]]:
                         # if cheaper path found clear path
                         paths[n.destination.data].clear()
                         paths[n.destination.data].append(n)
-                    # add edge to path if not visited to reduce doubling of edges and same costs
+                    # add edge to path if not visited and not already in path to reduce doubling of edges and same costs
                     elif n.destination.data not in visited1:
                         paths[n.destination.data].append(n)
                     # add next vertex to visited
@@ -366,6 +372,8 @@ graf = Graph()
 # graf.add(EdgeType.undirected, v3, v5, 2)
 # graf.add(EdgeType.undirected, v4, v5, 1)
 
+# all_weighted_shortest_paths(graf, "v0")
+
 # Graf Wazony Testowy 2
 # v0 = graf.create_vertex("A")
 # v1 = graf.create_vertex("B")
@@ -379,6 +387,8 @@ graf = Graph()
 # graf.add(EdgeType.undirected, v2, v4, 2)
 # graf.add(EdgeType.undirected, v3, v2, 3)
 # graf.add(EdgeType.undirected, v3, v4, 4)
+
+# all_weighted_shortest_paths(graf, "A")
 
 # Graf Wazony Testowy 3
 # v0 = graf.create_vertex("1")
@@ -396,6 +406,8 @@ graf = Graph()
 # graf.add(EdgeType.undirected, v4, v2, 1)
 # graf.add(EdgeType.undirected, v4, v5, 2)
 # graf.add(EdgeType.undirected, v5, v3, 3)
+
+# all_weighted_shortest_paths(graf, "1")
 
 # Graf Wazony Testowy 4 (Dziwny)
 v0 = graf.create_vertex("1")
@@ -423,13 +435,13 @@ graf.add(EdgeType.undirected, v3, v4, 1)
 graf.add(EdgeType.undirected, v4, v5, 1)
 graf.add(EdgeType.undirected, v5, v6, 1)
 
+all_weighted_shortest_paths(graf, "1")
+
 # print(graf)
 # graf.traverse_breadth_first(gprint)
 # graf.traverse_depth_first(gprint)
 
-pgraph = GraphPath(graf, v2, v0)
-
-all_weighted_shortest_paths(graf, "1")
+pgraph = GraphPath(graf, v6, v0)
 # for showing path on graph from vertex ve1 to vertex ve2 in GraphPath()
 pgraph.visualize()
 # for showing graph
