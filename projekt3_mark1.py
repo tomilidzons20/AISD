@@ -1,6 +1,6 @@
 from enum import Enum
 from typing import Any, Callable, Optional, Dict, List
-from testing import Queue
+from lab2_projekt import Queue
 import networkx as nx
 import matplotlib.pyplot as plt
 
@@ -371,7 +371,7 @@ graf.add(EdgeType.undirected, v3, v4, 1)
 graf.add(EdgeType.undirected, v3, v5, 2)
 graf.add(EdgeType.undirected, v4, v5, 1)
 
-all_weighted_shortest_paths(graf, "v0")
+all_weighted_shortest_paths(graf, "v3")
 
 # Graf Wazony Testowy 2
 # v0 = graf.create_vertex("A")
@@ -440,8 +440,8 @@ all_weighted_shortest_paths(graf, "v0")
 # graf.traverse_breadth_first(gprint)
 # graf.traverse_depth_first(gprint)
 
-# pgraph = GraphPath(graf, v6, v0)
+pgraph = GraphPath(graf, v0, v3)
 # for showing path on graph from vertex ve1 to vertex ve2 in GraphPath()
-# pgraph.visualize()
+pgraph.visualize()
 # for showing graph
-graf.show()
+# graf.show()
